@@ -48,15 +48,7 @@ function JobCard({
 
                 <button
                     type="button"
-                    onClick={() => {
-                        const confirmed = window.confirm(
-                            "Are you sure you want to delete this application?"
-                        );
-
-                        if (confirmed) {
-                            onDelete();
-                        }
-                    }}
+                    onClick={onDelete}
                 >
                     Delete
                 </button>

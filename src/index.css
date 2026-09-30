@@ -1014,3 +1014,462 @@ button:focus-visible {
         gap: 14px;
     }
 }
+
+/* =========================================================
+   ADD CONFIRMATION MODAL
+========================================================= */
+
+.add-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.add-modal {
+    width: 100%;
+    max-width: 430px;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 32px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    animation: addModalIn 0.2s ease-out;
+}
+
+@keyframes addModalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.add-modal-icon {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #dcfce7;
+    color: #16a34a;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.add-modal h3 {
+    margin: 0 0 10px;
+    font-size: 22px;
+    color: #172554;
+}
+
+/* Modal description */
+.add-modal > p {
+    margin: 0 0 20px;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.add-job-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px;
+    margin-bottom: 24px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    text-align: left;
+}
+
+.add-job-preview strong {
+    color: #172554;
+    font-size: 15px;
+}
+
+.add-job-preview span {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.add-modal-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.add-modal-actions button {
+    flex: 1;
+    min-height: 44px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.cancel-add-btn {
+    background: #f1f5f9;
+    color: #334155;
+}
+
+.cancel-add-btn:hover {
+    background: #e2e8f0;
+}
+
+.confirm-add-btn {
+    background: #16a34a;
+    color: #ffffff;
+}
+
+.confirm-add-btn:hover {
+    background: #15803d;
+}
+
+.add-modal-actions button:hover {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+    .add-modal {
+        padding: 24px 20px;
+    }
+
+    .add-modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .add-modal-actions button {
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   DELETE CONFIRMATION MODAL
+========================================================= */
+
+.delete-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    z-index: 1000;
+
+    backdrop-filter: blur(4px);
+}
+
+.delete-modal {
+    width: 100%;
+    max-width: 430px;
+
+    background: #ffffff;
+    border-radius: 18px;
+
+    padding: 32px;
+
+    text-align: center;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+
+    animation: deleteModalIn 0.2s ease-out;
+}
+
+@keyframes deleteModalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.delete-modal-icon {
+    width: 52px;
+    height: 52px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fee2e2;
+    color: #dc2626;
+
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.delete-modal h3 {
+    margin: 0 0 10px;
+
+    font-size: 22px;
+    color: #172554;
+}
+
+.delete-modal > p {
+    margin: 0 0 20px;
+
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.delete-job-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    padding: 16px;
+
+    margin-bottom: 14px;
+
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    text-align: left;
+}
+
+.delete-job-preview strong {
+    color: #172554;
+    font-size: 15px;
+}
+
+.delete-job-preview span {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.delete-modal .delete-warning {
+    margin-bottom: 24px;
+
+    color: #dc2626;
+    font-size: 13px;
+}
+
+.delete-modal-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.delete-modal-actions button {
+    flex: 1;
+
+    min-height: 44px;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.cancel-delete-btn {
+    background: #f1f5f9;
+    color: #334155;
+}
+
+.cancel-delete-btn:hover {
+    background: #e2e8f0;
+}
+
+.confirm-delete-btn {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+.confirm-delete-btn:hover {
+    background: #b91c1c;
+}
+
+.delete-modal-actions button:hover {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+    .delete-modal {
+        padding: 24px 20px;
+    }
+
+    .delete-modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .delete-modal-actions button {
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   UPDATE CONFIRMATION MODAL
+========================================================= */
+
+.update-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.update-modal {
+    width: 100%;
+    max-width: 430px;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 32px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    animation: updateModalIn 0.2s ease-out;
+}
+
+@keyframes updateModalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.update-modal-icon {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #dbeafe;
+    color: #2563eb;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.update-modal h3 {
+    margin: 0 0 10px;
+    font-size: 22px;
+    color: #172554;
+}
+
+.update-modal > p {
+    margin: 0 0 20px;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.update-job-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px;
+    margin-bottom: 24px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    text-align: left;
+}
+
+.update-job-preview strong {
+    color: #172554;
+    font-size: 15px;
+}
+
+.update-job-preview span {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.update-modal-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.update-modal-actions button {
+    flex: 1;
+    min-height: 44px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.cancel-update-btn {
+    background: #f1f5f9;
+    color: #334155;
+}
+
+.cancel-update-btn:hover {
+    background: #e2e8f0;
+}
+
+.confirm-update-btn {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.confirm-update-btn:hover {
+    background: #1d4ed8;
+}
+
+.update-modal-actions button:hover {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+    .update-modal {
+        padding: 24px 20px;
+    }
+
+    .update-modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .update-modal-actions button {
+        width: 100%;
+    }
+}

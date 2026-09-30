@@ -9,6 +9,10 @@ function Dashboard() {
     const [statusFilter, setStatusFilter] = useState("All");
     const [isLoaded, setIsLoaded] = useState(false);
     const [sortOption, setSortOption] = useState("newest");
+    const [addingJob, setAddingJob] = useState(null);
+    const [updatingJob, setUpdatingJob] = useState(null);
+    const [deletingJob, setDeletingJob] = useState(null);
+    const [formResetKey, setFormResetKey] = useState(0);
 
     useEffect(() => {
         const savedJobs = localStorage.getItem("jobApplications");
@@ -27,34 +31,49 @@ function Dashboard() {
     }, [jobs, isLoaded]);
 
     function addJob(application) {
+        setAddingJob(application);
+    }
+
+    function confirmAddJob() {
         setJobs((currentJobs) => [
             ...currentJobs,
             {
                 id: Date.now(),
-                ...application,
+                ...addingJob,
             },
         ]);
-    }
 
-    function updateJob(updatedApplication) {
-        setJobs((currentJobs) =>
-            currentJobs.map((job) =>
-                job.id === editingJob.id
-                    ? {
-                        ...job,
-                        ...updatedApplication,
-                    }
-                    : job
-            )
-        );
-
-        setEditingJob(null);
+        setAddingJob(null);
+        setFormResetKey((key) => key + 1);
     }
 
     function deleteJob(id) {
         setJobs((currentJobs) =>
             currentJobs.filter((job) => job.id !== id)
         );
+
+        setDeletingJob(null);
+    }
+
+    function requestUpdate(application) {
+        setUpdatingJob(application);
+    }
+
+    function confirmUpdateJob() {
+        setJobs((currentJobs) =>
+            currentJobs.map((job) =>
+                job.id === editingJob.id
+                    ? {
+                        ...job,
+                        ...updatingJob,
+                    }
+                    : job
+            )
+        );
+
+        setEditingJob(null);
+        setUpdatingJob(null);
+        setFormResetKey((key) => key + 1);
     }
 
     const filteredJobs = jobs
@@ -158,9 +177,10 @@ function Dashboard() {
             </div>
 
             <JobForm
+                key={formResetKey}
                 onAddJob={addJob}
                 editingJob={editingJob}
-                onUpdateJob={updateJob}
+                onUpdateJob={requestUpdate}
                 onCancelEdit={() => setEditingJob(null)}
             />
 
@@ -226,11 +246,126 @@ function Dashboard() {
                             jobUrl={job.jobUrl}
                             notes={job.notes}
                             onEdit={() => setEditingJob(job)}
-                            onDelete={() => deleteJob(job.id)}
+                            onDelete={() => setDeletingJob(job)}
                         />
                     ))
                 )}
             </div>
+
+            {addingJob && (
+                <div className="add-modal-overlay">
+                    <div className="add-modal">
+                        <div className="add-modal-icon">
+                            +
+                        </div>
+
+                        <h3>Add Application?</h3>
+
+                        <p>
+                            Are you sure you want to add this job application?
+                        </p>
+
+                        <div className="add-job-preview">
+                            <strong>{addingJob.position}</strong>
+                            <span>{addingJob.company}</span>
+                        </div>
+
+                        <div className="add-modal-actions">
+                            <button
+                                className="cancel-add-btn"
+                                onClick={() => setAddingJob(null)}
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                className="confirm-add-btn"
+                                onClick={confirmAddJob}
+                            >
+                                Add Application
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {updatingJob && (
+                <div className="update-modal-overlay">
+                    <div className="update-modal">
+                        <div className="update-modal-icon">
+                            ?
+                        </div>
+
+                        <h3>Update Application?</h3>
+
+                        <p>
+                            Are you sure you want to save these changes?
+                        </p>
+
+                        <div className="update-job-preview">
+                            <strong>{updatingJob.position}</strong>
+                            <span>{updatingJob.company}</span>
+                        </div>
+
+                        <div className="update-modal-actions">
+                            <button
+                                className="cancel-update-btn"
+                                onClick={() => setUpdatingJob(null)}
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                className="confirm-update-btn"
+                                onClick={confirmUpdateJob}
+                            >
+                                Update Application
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {deletingJob && (
+                    <div className="delete-modal-overlay">
+                        <div className="delete-modal">
+                            <div className="delete-modal-icon">
+                                !
+                            </div>
+
+                            <h3>Delete Application?</h3>
+
+                            <p>
+                                Are you sure you want to delete this application?
+                            </p>
+
+                            <div className="delete-job-preview">
+                                <strong>{deletingJob.position}</strong>
+                                <span>{deletingJob.company}</span>
+                            </div>
+
+                            <p className="delete-warning">
+                                This action cannot be undone.
+                            </p>
+
+                            <div className="delete-modal-actions">
+                                <button
+                                    className="cancel-delete-btn"
+                                    onClick={() => setDeletingJob(null)}
+                                >
+                                    Cancel
+                                </button>
+
+                                <button
+                                    className="confirm-delete-btn"
+                                    onClick={() => deleteJob(deletingJob.id)}
+                                >
+                                    Delete Application
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
         </main>
     );
 }

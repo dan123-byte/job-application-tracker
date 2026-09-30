@@ -43,13 +43,6 @@ function JobForm({
         } else {
             onAddJob(application);
         }
-
-        setCompany("");
-        setPosition("");
-        setDateApplied("");
-        setStatus("Wishlist");
-        setJobUrl("");
-        setNotes("");
     }
 
     return (
