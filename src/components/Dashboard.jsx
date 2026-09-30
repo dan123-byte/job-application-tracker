@@ -1,0 +1,238 @@
+import { useEffect, useState } from "react";
+import JobForm from "./JobForm";
+import JobCard from "./JobCard";
+
+function Dashboard() {
+    const [jobs, setJobs] = useState([]);
+    const [editingJob, setEditingJob] = useState(null);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [statusFilter, setStatusFilter] = useState("All");
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [sortOption, setSortOption] = useState("newest");
+
+    useEffect(() => {
+        const savedJobs = localStorage.getItem("jobApplications");
+
+        if (savedJobs) {
+            setJobs(JSON.parse(savedJobs));
+        }
+
+        setIsLoaded(true);
+    }, []);
+
+    useEffect(() => {
+        if (isLoaded) {
+            localStorage.setItem("jobApplications", JSON.stringify(jobs));
+        }
+    }, [jobs, isLoaded]);
+
+    function addJob(application) {
+        setJobs((currentJobs) => [
+            ...currentJobs,
+            {
+                id: Date.now(),
+                ...application,
+            },
+        ]);
+    }
+
+    function updateJob(updatedApplication) {
+        setJobs((currentJobs) =>
+            currentJobs.map((job) =>
+                job.id === editingJob.id
+                    ? {
+                        ...job,
+                        ...updatedApplication,
+                    }
+                    : job
+            )
+        );
+
+        setEditingJob(null);
+    }
+
+    function deleteJob(id) {
+        setJobs((currentJobs) =>
+            currentJobs.filter((job) => job.id !== id)
+        );
+    }
+
+    const filteredJobs = jobs
+    .filter((job) => {
+        const matchesSearch =
+            job.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            job.position.toLowerCase().includes(searchTerm.toLowerCase());
+
+        const matchesStatus =
+            statusFilter === "All" || job.status === statusFilter;
+
+        return matchesSearch && matchesStatus;
+    })
+    .sort((a, b) => {
+        if (sortOption === "newest") {
+            return new Date(b.dateApplied) - new Date(a.dateApplied);
+        }
+
+        if (sortOption === "oldest") {
+            return new Date(a.dateApplied) - new Date(b.dateApplied);
+        }
+
+        if (sortOption === "companyAZ") {
+            return a.company.localeCompare(b.company);
+        }
+
+        if (sortOption === "positionAZ") {
+            return a.position.localeCompare(b.position);
+        }
+
+        return 0;
+    });
+
+    const totalApplications = jobs.length;
+
+    const wishlistCount = jobs.filter(
+        (job) => job.status === "Wishlist"
+    ).length;
+
+    const appliedCount = jobs.filter(
+        (job) => job.status === "Applied"
+    ).length;
+
+    const interviewCount = jobs.filter(
+        (job) => job.status === "Interview"
+    ).length;
+
+    const offerCount = jobs.filter(
+        (job) => job.status === "Offer"
+    ).length;
+
+    const rejectedCount = jobs.filter(
+        (job) => job.status === "Rejected"
+    ).length;
+
+    return (
+        <main>
+            <div className="dashboard-header">
+                <div>
+                    <p className="dashboard-label">JOB APPLICATION TRACKER</p>
+
+                    <h2>Manage your job search</h2>
+
+                    <p>
+                        Keep track of your applications, interviews,
+                        offers, and opportunities in one place.
+                    </p>
+                </div>
+            </div>
+
+            <div className="statistics">
+                <div className="stat-card">
+                    <h3>{totalApplications}</h3>
+                    <p>Total Applications</p>
+                </div>
+
+                <div className="stat-card">
+                    <h3>{wishlistCount}</h3>
+                    <p>Wishlist</p>
+                </div>
+
+                <div className="stat-card">
+                    <h3>{appliedCount}</h3>
+                    <p>Applied</p>
+                </div>
+
+                <div className="stat-card">
+                    <h3>{interviewCount}</h3>
+                    <p>Interview</p>
+                </div>
+
+                <div className="stat-card">
+                    <h3>{offerCount}</h3>
+                    <p>Offers</p>
+                </div>
+
+                <div className="stat-card">
+                    <h3>{rejectedCount}</h3>
+                    <p>Rejected</p>
+                </div>
+            </div>
+
+            <JobForm
+                onAddJob={addJob}
+                editingJob={editingJob}
+                onUpdateJob={updateJob}
+                onCancelEdit={() => setEditingJob(null)}
+            />
+
+           <div className="job-filters">
+                <div className="search-box">
+                    <span className="search-icon">⌕</span>
+
+                    <input
+                        type="text"
+                        placeholder="Search company or position..."
+                        value={searchTerm}
+                        onChange={(event) => setSearchTerm(event.target.value)}
+                    />
+                </div>
+
+                <div className="filter-group">
+
+                    <div className="filter-control">
+                        <label>Status</label>
+
+                        <select
+                            value={statusFilter}
+                            onChange={(event) => setStatusFilter(event.target.value)}
+                        >
+                            <option value="All">All Statuses</option>
+                            <option value="Wishlist">Wishlist</option>
+                            <option value="Applied">Applied</option>
+                            <option value="Interview">Interview</option>
+                            <option value="Offer">Offer</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+
+                    <div className="filter-control">
+                        <label>Sort by</label>
+
+                        <select
+                            value={sortOption}
+                            onChange={(event) => setSortOption(event.target.value)}
+                        >
+                            <option value="newest">Newest Applied</option>
+                            <option value="oldest">Oldest Applied</option>
+                            <option value="companyAZ">Company A–Z</option>
+                            <option value="positionAZ">Position A–Z</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+           <div className="job-list">
+                {jobs.length === 0 ? (
+                    <p>No job applications yet. Add your first application above.</p>
+                ) : (
+                    filteredJobs.map((job) => (
+                        <JobCard
+                            key={job.id}
+                            company={job.company}
+                            position={job.position}
+                            dateApplied={job.dateApplied}
+                            status={job.status}
+                            jobUrl={job.jobUrl}
+                            notes={job.notes}
+                            onEdit={() => setEditingJob(job)}
+                            onDelete={() => deleteJob(job.id)}
+                        />
+                    ))
+                )}
+            </div>
+        </main>
+    );
+}
+
+export default Dashboard;
