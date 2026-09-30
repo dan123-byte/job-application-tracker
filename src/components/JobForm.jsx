@@ -23,6 +23,13 @@ function JobForm({
             setStatus(editingJob.status);
             setJobUrl(editingJob.jobUrl);
             setNotes(editingJob.notes);
+        } else {
+            setCompany("");
+            setPosition("");
+            setDateApplied("");
+            setStatus("Wishlist");
+            setJobUrl("");
+            setNotes("");
         }
     }, [editingJob]);
 
