@@ -78,7 +78,67 @@ body {
     color: var(--text);
     line-height: 1.6;
     min-height: 100vh;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
 }
+
+
+/* =========================================================
+   DARK MODE VARIABLES
+========================================================= */
+
+body.dark-mode {
+    --primary: #fb923c;
+    --primary-dark: #f97316;
+    --primary-light: #431f0d;
+    --primary-soft: #7c2d12;
+
+    --navy: #f8fafc;
+    --navy-light: #e2e8f0;
+
+    --background: #0f172a;
+    --surface: #1e293b;
+    --surface-soft: #172033;
+
+    --text: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+
+    --border: #334155;
+    --border-light: #273449;
+
+    --success: #4ade80;
+    --success-bg: #052e16;
+
+    --danger: #f87171;
+    --danger-bg: #450a0a;
+
+    --warning: #fbbf24;
+    --warning-bg: #451a03;
+
+    --blue: #60a5fa;
+    --blue-bg: #172554;
+
+    --purple: #a78bfa;
+    --purple-bg: #2e1065;
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25);
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode {
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(249, 115, 22, 0.08),
+            transparent 30%
+        ),
+        var(--background);
+}
+
 
 /* =========================================================
    MAIN
@@ -86,7 +146,6 @@ body {
 
 main {
     width: min(92%, 1280px);
-
     margin: 48px auto 70px;
 }
 
@@ -103,48 +162,35 @@ main {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-
     color: var(--primary) !important;
-
     font-size: 11px !important;
     font-weight: 800;
-
     letter-spacing: 1.6px;
     text-transform: uppercase;
-
     margin-bottom: 8px !important;
 }
 
 .dashboard-label::before {
     content: "";
-
     width: 6px;
     height: 6px;
-
     background: var(--primary);
-
     border-radius: 50%;
 }
 
 .dashboard-header h2 {
     color: var(--navy);
-
     font-size: clamp(30px, 4vw, 42px);
     font-weight: 800;
-
     letter-spacing: -1.5px;
     line-height: 1.15;
-
     margin-bottom: 9px;
 }
 
 .dashboard-header p:last-child {
     max-width: 650px;
-
     color: var(--text-secondary);
-
     font-size: 15px;
-
     margin-bottom: 0;
 }
 
@@ -155,52 +201,41 @@ main {
 
 form {
     background: var(--surface);
-
     padding: 28px;
-
     border-radius: var(--radius-xl);
-
     margin-bottom: 30px;
-
     border: 1px solid var(--border);
-
     box-shadow: var(--shadow);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 form h2 {
     display: flex;
     align-items: center;
     gap: 10px;
-
     margin-bottom: 24px;
-
     color: var(--navy);
-
     font-size: 20px;
     font-weight: 750;
-
     letter-spacing: -0.4px;
-
     padding-bottom: 18px;
-
     border-bottom: 1px solid var(--border-light);
 }
 
 form h2::before {
     content: "+";
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 30px;
     height: 30px;
-
     background: var(--primary-light);
     color: var(--primary);
-
     border-radius: 9px;
-
     font-size: 20px;
     font-weight: 500;
 }
@@ -214,13 +249,10 @@ input,
 select,
 textarea {
     width: 100%;
-
     padding: 13px 15px;
-
     margin-bottom: 14px;
 
     border: 1px solid var(--border);
-
     border-radius: var(--radius-md);
 
     font-size: 14px;
@@ -233,6 +265,7 @@ textarea {
         border-color 0.2s ease,
         box-shadow 0.2s ease,
         background 0.2s ease,
+        color 0.2s ease,
         transform 0.2s ease;
 }
 
@@ -248,13 +281,17 @@ textarea:hover {
     background: var(--surface);
 }
 
+body.dark-mode input:hover,
+body.dark-mode select:hover,
+body.dark-mode textarea:hover {
+    border-color: #475569;
+}
+
 input:focus,
 select:focus,
 textarea:focus {
     outline: none;
-
     border-color: var(--primary);
-
     background: var(--surface);
 
     box-shadow:
@@ -274,16 +311,11 @@ textarea {
 
 button {
     border: none;
-
     padding: 11px 18px;
-
     border-radius: 10px;
-
     background: var(--primary);
     color: #ffffff;
-
     cursor: pointer;
-
     font-family: inherit;
     font-size: 14px;
     font-weight: 650;
@@ -296,7 +328,6 @@ button {
 
 button:hover {
     background: var(--primary-dark);
-
     transform: translateY(-1px);
 
     box-shadow:
@@ -319,28 +350,32 @@ button:focus-visible {
 
 .form-actions {
     display: flex;
-
     gap: 10px;
-
     margin-top: 4px;
 }
 
 .form-actions button:last-child {
     background: #f1f5f9;
-
     color: var(--text-secondary);
-
     border: 1px solid var(--border);
-
     box-shadow: none;
 }
 
 .form-actions button:last-child:hover {
     background: #e2e8f0;
-
     color: var(--navy);
-
     box-shadow: none;
+}
+
+body.dark-mode .form-actions button:last-child {
+    background: #334155;
+    color: #cbd5e1;
+    border-color: #475569;
+}
+
+body.dark-mode .form-actions button:last-child:hover {
+    background: #475569;
+    color: #ffffff;
 }
 
 
@@ -350,17 +385,13 @@ button:focus-visible {
 
 .statistics {
     display: grid;
-
     grid-template-columns: repeat(6, 1fr);
-
     gap: 14px;
-
     margin-bottom: 30px;
 }
 
 .stat-card {
     position: relative;
-
     min-height: 125px;
 
     display: flex;
@@ -368,13 +399,10 @@ button:focus-visible {
     justify-content: center;
 
     background: var(--surface);
-
     padding: 20px;
 
     border-radius: var(--radius-lg);
-
     border: 1px solid var(--border);
-
     box-shadow: var(--shadow-sm);
 
     overflow: hidden;
@@ -382,14 +410,13 @@ button:focus-visible {
     transition:
         transform 0.2s ease,
         box-shadow 0.2s ease,
-        border-color 0.2s ease;
+        border-color 0.2s ease,
+        background 0.25s ease;
 }
 
 .stat-card::before {
     content: "";
-
     position: absolute;
-
     top: 0;
     left: 0;
 
@@ -397,13 +424,11 @@ button:focus-visible {
     height: 3px;
 
     background: var(--primary);
-
     opacity: 0.8;
 }
 
 .stat-card::after {
     content: "";
-
     position: absolute;
 
     width: 70px;
@@ -413,18 +438,18 @@ button:focus-visible {
     bottom: -30px;
 
     background: var(--primary-light);
-
     border-radius: 50%;
-
     opacity: 0.8;
 }
 
 .stat-card:hover {
     transform: translateY(-4px);
-
     border-color: #fed7aa;
-
     box-shadow: var(--shadow-lg);
+}
+
+body.dark-mode .stat-card:hover {
+    border-color: #7c2d12;
 }
 
 .stat-card h3 {
@@ -432,11 +457,9 @@ button:focus-visible {
     z-index: 1;
 
     font-size: 30px;
-
     line-height: 1;
 
     color: var(--navy);
-
     margin-bottom: 9px;
 }
 
@@ -445,7 +468,6 @@ button:focus-visible {
     z-index: 1;
 
     color: var(--text-muted);
-
     margin: 0;
 
     font-size: 12px;
@@ -464,46 +486,39 @@ button:focus-visible {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-
     gap: 20px;
 
     background: var(--surface);
-
     padding: 18px;
-
     margin-bottom: 22px;
 
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-
     box-shadow: var(--shadow-sm);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease;
 }
 
 .search-box {
     position: relative;
-
     flex: 1;
-
     max-width: 550px;
 }
 
 .search-box input {
     width: 100%;
-
     height: 48px;
-
     margin: 0;
 
     padding: 12px 15px 12px 44px;
 
     border: 1px solid var(--border);
-
     border-radius: 11px;
 
     background: var(--surface-soft);
-
     color: var(--text);
-
     font-size: 14px;
 }
 
@@ -520,33 +535,27 @@ button:focus-visible {
     transform: translateY(-50%);
 
     color: var(--text-muted);
-
     font-size: 20px;
     line-height: 1;
 
     z-index: 1;
-
     pointer-events: none;
 }
 
 .filter-group {
     display: flex;
-
     gap: 10px;
 }
 
 .filter-control {
     display: flex;
     flex-direction: column;
-
     gap: 5px;
-
     min-width: 165px;
 }
 
 .filter-control label {
     color: var(--text-muted);
-
     font-size: 10px;
     font-weight: 800;
 
@@ -556,19 +565,15 @@ button:focus-visible {
 
 .filter-control select {
     width: 100%;
-
     height: 48px;
-
     margin: 0;
 
     padding: 10px 35px 10px 13px;
 
     border: 1px solid var(--border);
-
     border-radius: 11px;
 
     background: var(--surface-soft);
-
     color: var(--text);
 
     font-size: 13px;
@@ -588,9 +593,7 @@ button:focus-visible {
 
 .job-list {
     display: grid;
-
     grid-template-columns: repeat(2, minmax(0, 1fr));
-
     gap: 18px;
 }
 
@@ -603,13 +606,10 @@ button:focus-visible {
     position: relative;
 
     background: var(--surface);
-
     padding: 23px;
 
     border-radius: var(--radius-lg);
-
     border: 1px solid var(--border);
-
     box-shadow: var(--shadow-sm);
 
     overflow: hidden;
@@ -617,12 +617,12 @@ button:focus-visible {
     transition:
         transform 0.2s ease,
         box-shadow 0.2s ease,
-        border-color 0.2s ease;
+        border-color 0.2s ease,
+        background 0.25s ease;
 }
 
 .job-card::before {
     content: "";
-
     position: absolute;
 
     left: 0;
@@ -632,7 +632,6 @@ button:focus-visible {
     width: 3px;
 
     background: var(--primary);
-
     opacity: 0;
 
     transition: opacity 0.2s ease;
@@ -640,10 +639,12 @@ button:focus-visible {
 
 .job-card:hover {
     transform: translateY(-4px);
-
     border-color: #fed7aa;
-
     box-shadow: var(--shadow-lg);
+}
+
+body.dark-mode .job-card:hover {
+    border-color: #7c2d12;
 }
 
 .job-card:hover::before {
@@ -654,18 +655,14 @@ button:focus-visible {
     margin-bottom: 5px;
 
     color: var(--navy);
-
     font-size: 19px;
     font-weight: 750;
-
     letter-spacing: -0.3px;
 }
 
 .job-card p {
     margin-bottom: 6px;
-
     color: var(--text-secondary);
-
     font-size: 14px;
 }
 
@@ -685,19 +682,15 @@ button:focus-visible {
     gap: 6px;
 
     margin-top: 9px;
-
     padding: 5px 10px;
 
     border-radius: 999px;
 
     background: var(--primary-light);
-
     color: var(--primary-dark);
 
     font-size: 11px;
-
     font-weight: 750;
-
     letter-spacing: 0.2px;
 }
 
@@ -708,7 +701,6 @@ button:focus-visible {
     height: 6px;
 
     background: currentColor;
-
     border-radius: 50%;
 }
 
@@ -735,7 +727,6 @@ button:focus-visible {
 
 .job-card a:hover {
     color: var(--primary);
-
     text-decoration: none;
 }
 
@@ -746,7 +737,6 @@ button:focus-visible {
 
 .job-actions {
     display: flex;
-
     gap: 8px;
 
     margin-top: 18px;
@@ -757,28 +747,33 @@ button:focus-visible {
 
 .job-actions button {
     padding: 8px 14px;
-
     font-size: 13px;
 }
 
 .job-actions button:last-child {
     background: transparent;
-
     color: var(--danger);
 
     border: 1px solid #fecaca;
-
     box-shadow: none;
 }
 
 .job-actions button:last-child:hover {
     background: var(--danger-bg);
-
     color: #b91c1c;
-
     border-color: #fca5a5;
-
     box-shadow: none;
+}
+
+body.dark-mode .job-actions button:last-child {
+    border-color: #7f1d1d;
+    color: #f87171;
+}
+
+body.dark-mode .job-actions button:last-child:hover {
+    background: var(--danger-bg);
+    color: #fca5a5;
+    border-color: #991b1b;
 }
 
 
@@ -798,56 +793,94 @@ button:focus-visible {
     min-height: 180px;
 
     background: var(--surface);
-
     border: 1px dashed #cbd5e1;
 
     border-radius: var(--radius-lg);
 
     color: var(--text-muted);
-
     font-size: 14px;
 }
+
+body.dark-mode .job-list:empty::before {
+    border-color: #475569;
+}
+
 
 /* =========================================================
    STATUS COLORS
 ========================================================= */
 
 /* WISHLIST */
+
 .job-card span.status-wishlist {
     background: #f5f3ff;
     color: #7c3aed;
 }
 
 /* APPLIED */
+
 .job-card span.status-applied {
     background: #eff6ff;
     color: #2563eb;
 }
 
 /* INTERVIEW */
+
 .job-card span.status-interview {
     background: #fff7ed;
     color: #ea580c;
 }
 
 /* OFFER */
+
 .job-card span.status-offer {
     background: #f0fdf4;
     color: #16a34a;
 }
 
 /* REJECTED */
+
 .job-card span.status-rejected {
     background: #fef2f2;
     color: #dc2626;
 }
+
+
+/* =========================================================
+   DARK MODE - STATUS COLORS
+========================================================= */
+
+body.dark-mode .job-card span.status-wishlist {
+    background: #2e1065;
+    color: #c4b5fd;
+}
+
+body.dark-mode .job-card span.status-applied {
+    background: #172554;
+    color: #93c5fd;
+}
+
+body.dark-mode .job-card span.status-interview {
+    background: #431407;
+    color: #fdba74;
+}
+
+body.dark-mode .job-card span.status-offer {
+    background: #052e16;
+    color: #86efac;
+}
+
+body.dark-mode .job-card span.status-rejected {
+    background: #450a0a;
+    color: #fca5a5;
+}
+
 
 /* =========================================================
    RESPONSIVE - TABLET
 ========================================================= */
 
 @media (max-width: 1100px) {
-
     .statistics {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -863,16 +896,13 @@ button:focus-visible {
 ========================================================= */
 
 @media (max-width: 900px) {
-
     main {
         width: 92%;
-
         margin-top: 35px;
     }
 
     .job-filters {
         flex-direction: column;
-
         align-items: stretch;
     }
 
@@ -895,7 +925,6 @@ button:focus-visible {
 ========================================================= */
 
 @media (max-width: 768px) {
-
     nav {
         padding: 15px 4%;
     }
@@ -906,7 +935,6 @@ button:focus-visible {
 
     main {
         width: 92%;
-
         margin: 30px auto 50px;
     }
 
@@ -916,25 +944,21 @@ button:focus-visible {
 
     .dashboard-header h2 {
         font-size: 30px;
-
         letter-spacing: -1px;
     }
 
     form {
         padding: 21px;
-
         border-radius: 15px;
     }
 
     .statistics {
         grid-template-columns: repeat(2, 1fr);
-
         gap: 10px;
     }
 
     .stat-card {
         min-height: 110px;
-
         padding: 17px;
     }
 
@@ -953,10 +977,8 @@ button:focus-visible {
 ========================================================= */
 
 @media (max-width: 500px) {
-
     main {
         width: 94%;
-
         margin-top: 25px;
     }
 
@@ -974,7 +996,6 @@ button:focus-visible {
 
     .stat-card {
         min-height: 100px;
-
         padding: 15px;
     }
 
@@ -998,7 +1019,6 @@ button:focus-visible {
 
     .job-filters {
         padding: 14px;
-
         gap: 14px;
     }
 
@@ -1015,30 +1035,47 @@ button:focus-visible {
     }
 }
 
+
+/* =========================================================
+   MODAL OVERLAYS
+========================================================= */
+
+.add-modal-overlay,
+.delete-modal-overlay,
+.update-modal-overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(15, 23, 42, 0.65);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    z-index: 1000;
+
+    backdrop-filter: blur(4px);
+}
+
+
 /* =========================================================
    ADD CONFIRMATION MODAL
 ========================================================= */
 
-.add-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.65);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    z-index: 1000;
-    backdrop-filter: blur(4px);
-}
-
 .add-modal {
     width: 100%;
     max-width: 430px;
-    background: #ffffff;
+
+    background: var(--surface);
+
     border-radius: 18px;
     padding: 32px;
+
     text-align: center;
+
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+
     animation: addModalIn 0.2s ease-out;
 }
 
@@ -1057,50 +1094,67 @@ button:focus-visible {
 .add-modal-icon {
     width: 52px;
     height: 52px;
+
     margin: 0 auto 18px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     border-radius: 50%;
+
     background: #dcfce7;
     color: #16a34a;
+
     font-size: 24px;
     font-weight: 700;
 }
 
 .add-modal h3 {
     margin: 0 0 10px;
+
     font-size: 22px;
-    color: #172554;
+    color: var(--text);
 }
 
-/* Modal description */
 .add-modal > p {
     margin: 0 0 20px;
-    color: #64748b;
+
+    color: var(--text-secondary);
+
     font-size: 14px;
     line-height: 1.6;
 }
 
-.add-job-preview {
+.add-job-preview,
+.delete-job-preview,
+.update-job-preview {
     display: flex;
     flex-direction: column;
     gap: 4px;
+
     padding: 16px;
     margin-bottom: 24px;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+
     border-radius: 12px;
+
     text-align: left;
 }
 
-.add-job-preview strong {
-    color: #172554;
+.add-job-preview strong,
+.delete-job-preview strong,
+.update-job-preview strong {
+    color: var(--text);
     font-size: 15px;
 }
 
-.add-job-preview span {
-    color: #64748b;
+.add-job-preview span,
+.delete-job-preview span,
+.update-job-preview span {
+    color: var(--text-secondary);
     font-size: 14px;
 }
 
@@ -1111,12 +1165,17 @@ button:focus-visible {
 
 .add-modal-actions button {
     flex: 1;
+
     min-height: 44px;
+
     border: none;
     border-radius: 10px;
+
     font-size: 14px;
     font-weight: 600;
+
     cursor: pointer;
+
     transition:
         background 0.2s ease,
         transform 0.2s ease;
@@ -1144,47 +1203,18 @@ button:focus-visible {
     transform: translateY(-1px);
 }
 
-@media (max-width: 480px) {
-    .add-modal {
-        padding: 24px 20px;
-    }
-
-    .add-modal-actions {
-        flex-direction: column-reverse;
-    }
-
-    .add-modal-actions button {
-        width: 100%;
-    }
-}
 
 /* =========================================================
    DELETE CONFIRMATION MODAL
 ========================================================= */
 
-.delete-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.65);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 20px;
-
-    z-index: 1000;
-
-    backdrop-filter: blur(4px);
-}
-
 .delete-modal {
     width: 100%;
     max-width: 430px;
 
-    background: #ffffff;
-    border-radius: 18px;
+    background: var(--surface);
 
+    border-radius: 18px;
     padding: 32px;
 
     text-align: center;
@@ -1229,47 +1259,27 @@ button:focus-visible {
     margin: 0 0 10px;
 
     font-size: 22px;
-    color: #172554;
+    color: var(--text);
 }
 
 .delete-modal > p {
     margin: 0 0 20px;
 
-    color: #64748b;
+    color: var(--text-secondary);
+
     font-size: 14px;
     line-height: 1.6;
 }
 
 .delete-job-preview {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-
-    padding: 16px;
-
     margin-bottom: 14px;
-
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-
-    text-align: left;
-}
-
-.delete-job-preview strong {
-    color: #172554;
-    font-size: 15px;
-}
-
-.delete-job-preview span {
-    color: #64748b;
-    font-size: 14px;
 }
 
 .delete-modal .delete-warning {
     margin-bottom: 24px;
 
-    color: #dc2626;
+    color: var(--danger);
+
     font-size: 13px;
 }
 
@@ -1318,44 +1328,24 @@ button:focus-visible {
     transform: translateY(-1px);
 }
 
-@media (max-width: 480px) {
-    .delete-modal {
-        padding: 24px 20px;
-    }
-
-    .delete-modal-actions {
-        flex-direction: column-reverse;
-    }
-
-    .delete-modal-actions button {
-        width: 100%;
-    }
-}
 
 /* =========================================================
    UPDATE CONFIRMATION MODAL
 ========================================================= */
 
-.update-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.65);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    z-index: 1000;
-    backdrop-filter: blur(4px);
-}
-
 .update-modal {
     width: 100%;
     max-width: 430px;
-    background: #ffffff;
+
+    background: var(--surface);
+
     border-radius: 18px;
     padding: 32px;
+
     text-align: center;
+
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+
     animation: updateModalIn 0.2s ease-out;
 }
 
@@ -1374,50 +1364,40 @@ button:focus-visible {
 .update-modal-icon {
     width: 52px;
     height: 52px;
+
     margin: 0 auto 18px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     border-radius: 50%;
+
     background: #dbeafe;
     color: #2563eb;
+
     font-size: 24px;
     font-weight: 700;
 }
 
 .update-modal h3 {
     margin: 0 0 10px;
+
     font-size: 22px;
-    color: #172554;
+    color: var(--text);
 }
 
 .update-modal > p {
     margin: 0 0 20px;
-    color: #64748b;
+
+    color: var(--text-secondary);
+
     font-size: 14px;
     line-height: 1.6;
 }
 
 .update-job-preview {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 16px;
     margin-bottom: 24px;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    text-align: left;
-}
-
-.update-job-preview strong {
-    color: #172554;
-    font-size: 15px;
-}
-
-.update-job-preview span {
-    color: #64748b;
-    font-size: 14px;
 }
 
 .update-modal-actions {
@@ -1427,12 +1407,17 @@ button:focus-visible {
 
 .update-modal-actions button {
     flex: 1;
+
     min-height: 44px;
+
     border: none;
     border-radius: 10px;
+
     font-size: 14px;
     font-weight: 600;
+
     cursor: pointer;
+
     transition:
         background 0.2s ease,
         transform 0.2s ease;
@@ -1460,16 +1445,122 @@ button:focus-visible {
     transform: translateY(-1px);
 }
 
+
+/* =========================================================
+   DARK MODE - MODAL CANCEL BUTTONS
+========================================================= */
+
+body.dark-mode .cancel-add-btn,
+body.dark-mode .cancel-delete-btn,
+body.dark-mode .cancel-update-btn {
+    background: #334155;
+    color: #cbd5e1;
+    border: 1px solid #475569;
+}
+
+body.dark-mode .cancel-add-btn:hover,
+body.dark-mode .cancel-delete-btn:hover,
+body.dark-mode .cancel-update-btn:hover {
+    background: #475569;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   DARK MODE - MODAL ICONS
+========================================================= */
+
+body.dark-mode .add-modal-icon {
+    background: #052e16;
+    color: #4ade80;
+}
+
+body.dark-mode .delete-modal-icon {
+    background: #450a0a;
+    color: #f87171;
+}
+
+body.dark-mode .update-modal-icon {
+    background: #172554;
+    color: #60a5fa;
+}
+
+
+/* =========================================================
+   MODAL - MOBILE
+========================================================= */
+
 @media (max-width: 480px) {
+    .add-modal,
+    .delete-modal,
     .update-modal {
         padding: 24px 20px;
     }
 
+    .add-modal-actions,
+    .delete-modal-actions,
     .update-modal-actions {
         flex-direction: column-reverse;
     }
 
+    .add-modal-actions button,
+    .delete-modal-actions button,
     .update-modal-actions button {
         width: 100%;
+    }
+}
+
+/* =========================================================
+   THEME TOGGLE
+========================================================= */
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.theme-toggle {
+    width: 46px;
+    height: 46px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+    flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+body.dark-mode .theme-toggle {
+    background: var(--surface);
+    border-color: var(--border);
+}
+
+body.dark-mode .theme-toggle:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+@media (max-width: 600px) {
+    .dashboard-header {
+        align-items: flex-start;
+    }
+
+    .theme-toggle {
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
     }
 }

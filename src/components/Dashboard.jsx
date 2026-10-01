@@ -13,6 +13,9 @@ function Dashboard() {
     const [updatingJob, setUpdatingJob] = useState(null);
     const [deletingJob, setDeletingJob] = useState(null);
     const [formResetKey, setFormResetKey] = useState(0);
+    const [darkMode, setDarkMode] = useState(() => {
+        return localStorage.getItem("theme") === "dark";
+    });
 
     useEffect(() => {
         const savedJobs = localStorage.getItem("jobApplications");
@@ -29,6 +32,11 @@ function Dashboard() {
             localStorage.setItem("jobApplications", JSON.stringify(jobs));
         }
     }, [jobs, isLoaded]);
+
+    useEffect(() => {
+        document.body.classList.toggle("dark-mode", darkMode);
+        localStorage.setItem("theme", darkMode ? "dark" : "light");
+    }, [darkMode]);
 
     function addJob(application) {
         setAddingJob(application);
@@ -142,6 +150,14 @@ function Dashboard() {
                         offers, and opportunities in one place.
                     </p>
                 </div>
+
+                <button
+                    className="theme-toggle"
+                    onClick={() => setDarkMode((current) => !current)}
+                    aria-label="Toggle dark mode"
+                >
+                    {darkMode ? "☀️" : "🌙"}
+                </button>
             </div>
 
             <div className="statistics">
