@@ -16,6 +16,7 @@ function Dashboard() {
     const [darkMode, setDarkMode] = useState(() => {
         return localStorage.getItem("theme") === "dark";
     });
+    const [viewMode, setViewMode] = useState("cards");
     const [currentPage, setCurrentPage] = useState(1);
     const jobsPerPage = 6;
 
@@ -260,14 +261,28 @@ function Dashboard() {
                         </select>
                     </div>
 
-                </div>
+                    <div className="view-toggle">
+                        <button
+                            className={viewMode === "cards" ? "active" : ""}
+                            onClick={() => setViewMode("cards")}
+                        >
+                            ▦ Cards
+                        </button>
 
+                        <button
+                            className={viewMode === "table" ? "active" : ""}
+                            onClick={() => setViewMode("table")}
+                        >
+                            ☷ Table
+                        </button>
+                    </div>
+                </div>
             </div>
 
-           <div className="job-list">
+           <div className={viewMode === "table" ? "job-table-container" : "job-list"}>
                 {jobs.length === 0 ? (
                     <p>No job applications yet. Add your first application above.</p>
-                ) : (
+                ) : viewMode === "cards" ? (
                     currentJobs.map((job) => (
                         <JobCard
                             key={job.id}
@@ -281,6 +296,65 @@ function Dashboard() {
                             onDelete={() => setDeletingJob(job)}
                         />
                     ))
+                ) : (
+                    <table className="job-table">
+                        <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th>Position</th>
+                                <th>Date Applied</th>
+                                <th>Status</th>
+                                <th>Job Link</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {currentJobs.map((job) => (
+                                <tr key={job.id}>
+                                    <td>{job.company}</td>
+
+                                    <td>{job.position}</td>
+
+                                    <td>{job.dateApplied}</td>
+
+                                    <td>
+                                        <span className={`table-status ${job.status.toLowerCase()}`}>
+                                            {job.status}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        {job.jobUrl ? (
+                                            <a
+                                                href={job.jobUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                View Job
+                                            </a>
+                                        ) : (
+                                            "—"
+                                        )}
+                                    </td>
+
+                                    <td className="table-actions">
+                                        <button
+                                            onClick={() => setEditingJob(job)}
+                                        >
+                                            Edit
+                                        </button>
+
+                                        <button
+                                            onClick={() => setDeletingJob(job)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 )}
             </div>
 
