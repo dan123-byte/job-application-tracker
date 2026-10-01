@@ -91,6 +91,17 @@ function Dashboard() {
         setFormResetKey((key) => key + 1);
     }
 
+    function handleEditJob(job) {
+        setEditingJob(job);
+
+        setTimeout(() => {
+            document.getElementById("job-form")?.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
+        }, 0);
+    }
+
     const filteredJobs = jobs
     .filter((job) => {
         const matchesSearch =
@@ -274,13 +285,15 @@ function Dashboard() {
                 </div>
             </div>
 
-            <JobForm
-                key={formResetKey}
-                onAddJob={addJob}
-                editingJob={editingJob}
-                onUpdateJob={requestUpdate}
-                onCancelEdit={() => setEditingJob(null)}
-            />
+            <div id="job-form">
+                <JobForm
+                    key={formResetKey}
+                    onAddJob={addJob}
+                    editingJob={editingJob}
+                    onUpdateJob={requestUpdate}
+                    onCancelEdit={() => setEditingJob(null)}
+                />
+            </div>
 
            <div className="job-filters">
                 <div className="search-box">
@@ -357,7 +370,7 @@ function Dashboard() {
                             status={job.status}
                             jobUrl={job.jobUrl}
                             notes={job.notes}
-                            onEdit={() => setEditingJob(job)}
+                            onEdit={() => handleEditJob(job)}
                             onDelete={() => setDeletingJob(job)}
                         />
                     ))
@@ -405,7 +418,7 @@ function Dashboard() {
 
                                     <td className="table-actions">
                                         <button
-                                            onClick={() => setEditingJob(job)}
+                                            onClick={() => handleEditJob(job)}
                                         >
                                             Edit
                                         </button>
