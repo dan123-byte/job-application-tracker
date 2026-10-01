@@ -16,6 +16,8 @@ function Dashboard() {
     const [darkMode, setDarkMode] = useState(() => {
         return localStorage.getItem("theme") === "dark";
     });
+    const [currentPage, setCurrentPage] = useState(1);
+    const jobsPerPage = 6;
 
     useEffect(() => {
         const savedJobs = localStorage.getItem("jobApplications");
@@ -37,6 +39,10 @@ function Dashboard() {
         document.body.classList.toggle("dark-mode", darkMode);
         localStorage.setItem("theme", darkMode ? "dark" : "light");
     }, [darkMode]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchTerm, statusFilter, sortOption]);
 
     function addJob(application) {
         setAddingJob(application);
@@ -114,6 +120,16 @@ function Dashboard() {
 
         return 0;
     });
+
+    const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
+
+    const indexOfLastJob = currentPage * jobsPerPage;
+    const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+
+    const currentJobs = filteredJobs.slice(
+        indexOfFirstJob,
+        indexOfLastJob
+    );
 
     const totalApplications = jobs.length;
 
@@ -252,7 +268,7 @@ function Dashboard() {
                 {jobs.length === 0 ? (
                     <p>No job applications yet. Add your first application above.</p>
                 ) : (
-                    filteredJobs.map((job) => (
+                    currentJobs.map((job) => (
                         <JobCard
                             key={job.id}
                             company={job.company}
@@ -267,6 +283,34 @@ function Dashboard() {
                     ))
                 )}
             </div>
+
+            {totalPages > 1 && (
+                <div className="pagination">
+                    <button
+                        onClick={() =>
+                            setCurrentPage((page) => Math.max(page - 1, 1))
+                        }
+                        disabled={currentPage === 1}
+                    >
+                        ← Previous
+                    </button>
+
+                    <span>
+                        Page {currentPage} of {totalPages}
+                    </span>
+
+                    <button
+                        onClick={() =>
+                            setCurrentPage((page) =>
+                                Math.min(page + 1, totalPages)
+                            )
+                        }
+                        disabled={currentPage === totalPages}
+                    >
+                        Next →
+                    </button>
+                </div>
+            )}
 
             {addingJob && (
                 <div className="add-modal-overlay">
