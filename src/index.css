@@ -2079,3 +2079,130 @@ body.dark-mode .table-actions button:last-child:hover {
         flex-direction: row;
     }
 }
+
+/* =========================================================
+   CONVERSION ANALYTICS
+========================================================= */
+
+.conversion-section {
+    margin: 32px 0;
+}
+
+.section-heading {
+    margin-bottom: 18px;
+}
+
+.section-heading h3 {
+    margin: 4px 0 0;
+    color: var(--text);
+    font-size: 22px;
+}
+
+.conversion-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.conversion-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 22px;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-sm);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.conversion-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.conversion-card p {
+    margin: 0 0 4px;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.conversion-card h3 {
+    margin: 0;
+    color: var(--text);
+    font-size: 28px;
+}
+
+.conversion-card span {
+    display: block;
+    margin-top: 4px;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.conversion-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 12px;
+    font-size: 20px;
+}
+
+.interview-icon {
+    background: var(--blue-bg);
+}
+
+.offer-icon {
+    background: var(--success-bg);
+}
+
+.rejection-icon {
+    background: var(--danger-bg);
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+body.dark-mode .conversion-card {
+    background: var(--surface);
+    border-color: var(--border);
+}
+
+body.dark-mode .conversion-card h3 {
+    color: var(--text);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+    .conversion-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .conversion-card {
+        padding: 18px;
+    }
+
+    .conversion-card h3 {
+        font-size: 24px;
+    }
+}

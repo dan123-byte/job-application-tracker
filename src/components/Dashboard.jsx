@@ -154,6 +154,21 @@ function Dashboard() {
         (job) => job.status === "Rejected"
     ).length;
 
+    const interviewRate =
+        totalApplications > 0
+            ? ((interviewCount / totalApplications) * 100).toFixed(1)
+            : 0;
+
+    const offerRate =
+        totalApplications > 0
+            ? ((offerCount / totalApplications) * 100).toFixed(1)
+            : 0;
+
+    const rejectionRate =
+        totalApplications > 0
+            ? ((rejectedCount / totalApplications) * 100).toFixed(1)
+            : 0;
+
     return (
         <main>
             <div className="dashboard-header">
@@ -206,6 +221,56 @@ function Dashboard() {
                 <div className="stat-card">
                     <h3>{rejectedCount}</h3>
                     <p>Rejected</p>
+                </div>
+            </div>
+
+            <div className="conversion-section">
+                <div className="conversion-grid">
+
+                    <div className="conversion-card">
+                        <div className="conversion-icon interview-icon">
+                            💬
+                        </div>
+
+                        <div>
+                            <p>Interview Rate</p>
+                            <h3>{interviewRate}%</h3>
+                            <span>
+                                {interviewCount} of {totalApplications} applications
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div className="conversion-card">
+                        <div className="conversion-icon offer-icon">
+                            🏆
+                        </div>
+
+                        <div>
+                            <p>Offer Rate</p>
+                            <h3>{offerRate}%</h3>
+                            <span>
+                                {offerCount} of {totalApplications} applications
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <div className="conversion-card">
+                        <div className="conversion-icon rejection-icon">
+                            ✕
+                        </div>
+
+                        <div>
+                            <p>Rejection Rate</p>
+                            <h3>{rejectionRate}%</h3>
+                            <span>
+                                {rejectedCount} of {totalApplications} applications
+                            </span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
