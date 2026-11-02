@@ -359,7 +359,23 @@ function Dashboard() {
 
            <div className={viewMode === "table" ? "job-table-container" : "job-list"}>
                 {jobs.length === 0 ? (
-                    <p>No job applications yet. Add your first application above.</p>
+                    <div className="empty-state">
+                        <div className="empty-state-icon">
+                            <i className="fas fa-briefcase"></i>
+                        </div>
+
+                        <h3>No Applications Yet</h3>
+
+                        <p>
+                            Your job search journey starts here.
+                            Add your first application to keep track of your opportunities.
+                        </p>
+
+                        <span className="empty-state-hint">
+                            <i className="fas fa-lightbulb"></i>
+                            Stay organized. Keep moving forward.
+                        </span>
+                    </div>
                 ) : viewMode === "cards" ? (
                     currentJobs.map((job) => (
                         <JobCard
